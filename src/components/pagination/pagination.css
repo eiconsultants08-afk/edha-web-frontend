@@ -1,0 +1,127 @@
+.pagination {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: var(--gap);
+  margin: 20px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+.filters-page {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.filters-page > div {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown {
+  background-color: var(--white);
+  color: var(--text-secondary);
+  min-height: 2rem;
+  min-width: 5rem;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid var(--input-border);
+  cursor: pointer;
+  outline: none;
+  padding: 6px 12px;
+  border-radius: 7px;
+  margin-left: 8px;
+  text-align: center;
+}
+
+.dropdown:hover {
+  background-color: var(--dropdown-hover);
+}
+
+.records {
+  color: var(--text-primary);
+}
+
+.current-page {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+}
+
+.pagination .ml {
+  margin-left: 10px;
+}
+
+.pagination .page-num {
+  padding: 6px 13px;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 7px;
+  min-width: 36px;
+  text-align: center;
+}
+
+.pagination .page-nav {
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 7px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--hover-effect);
+  user-select: none;
+}
+
+.pagination .page-nav:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.pagination .disabled {
+  background-color: transparent;
+  color: var(--text-primary);
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 600px) {
+  .pagination {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .filters-page {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .dropdown {
+    width: 4rem;
+    font-size: 14px;
+    margin-left: 8px;
+    margin-right: 0;
+  }
+
+  .records {
+    margin: 4px 0;
+    text-align: center;
+  }
+
+  .current-page {
+    justify-content: center;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .pagination .page-nav,
+  .pagination .page-num {
+    font-size: 14px;
+  }
+}

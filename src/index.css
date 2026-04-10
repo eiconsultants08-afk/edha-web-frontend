@@ -1,0 +1,12 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+text-decoration: none;
+}
+
+body {
+  font-family:'Roboto' !important;
+  background-color: #f9fafc;
+  scroll-behavior: smooth;
+}

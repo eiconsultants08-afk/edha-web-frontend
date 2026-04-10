@@ -1,0 +1,121 @@
+.dropdown-container{
+    background-color: var(--primary);
+    border: transparent;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative ;
+    transition: var(--hover-effect);    
+    border: 1px solid transparent;
+    z-index: 1;
+}
+
+.dropdown-container:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+
+.dropdown-content{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dropdown-title{
+    padding: 8px 0 8px 15px ;
+}
+
+.arrow-down{
+    margin:8px 10px 0;
+    transition: transform 0.2s ease; 
+}
+
+.arrow-up {
+    transform: rotate(180deg);
+  }
+
+.dropdown-list{
+    position: absolute;
+    top: 102%;
+    left: 0;
+    list-style: none;
+    background-color: var(--white);
+    color: var(--text-secondary);
+    padding: 0 15px;
+    /* border-radius: var(--radius); */
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 1px 0;
+    box-shadow: var(--shadow);
+    z-index: 1;
+}
+
+.option-checkall{
+  padding: 15px ;
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.checkbox-option{
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 15px;
+}
+
+.checkbox-option>span{padding-top: 4px;}
+
+.checkbox-list{
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+
+.dropdown-list li{
+    padding: 15px;
+    transition: var(--hover-effect);
+}
+
+.dropdown-list li:hover,.option-checkall:hover{
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.dropdown-label{
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 1px;
+    margin-bottom: 5px;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-8px); /* Start slightly above its final position */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* Move to its final position */
+    }
+  }
+  
+  .dropdown-list,.dropdown-list li {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  @media screen and (max-width:425px) {
+
+    .arrow-down{
+      margin: 6px 5px 0;
+    }
+
+  }

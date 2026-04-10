@@ -1,0 +1,28 @@
+.activetab-btn, .inactivetab-btn{
+    border: 1px solid #ccc;
+}
+
+.tab-btns{
+    display: flex;
+    gap: var(--gap);
+}
+
+.tab-btns button{
+    width: 140px;
+}
+/* 
+.activetab-btn{
+    background-color: ;
+    color: var(--white);
+} */
+
+@media screen and (width <= 450px) {
+    .tab-btns{
+        display: flex;
+        flex-direction: column;
+        width: 100% !important;
+    }
+    .tab-btns button{
+        width:100% !important;
+    } 
+}

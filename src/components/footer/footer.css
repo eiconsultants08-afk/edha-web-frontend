@@ -1,0 +1,66 @@
+
+.footer-contents {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  text-align: center;
+  font-weight: 500;
+  margin-left: var(--sidebar-width);
+  padding-left: 25px;
+}
+
+.footer-text{
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.footer-text, .weatherCast-link, .policy, .weatherCast-contact{
+  color: var(--black);
+}
+.policy:hover,.weatherCast-link:hover, .weatherCast-contact:hover{
+  color: var(--primary);
+}
+
+.weatherCast-contact{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer-links{
+  display: flex;
+}
+
+.policy {
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (width <= 800px) {
+    .footer-contents{
+        margin-left: 0px;
+    }
+}
+
+
+@media screen and (max-width:426px) {
+
+  .footer-contents{
+    font-size: 11px;
+    margin-bottom: 10px;
+    
+  }
+
+  .footer-text{
+    flex-direction: column;
+  }
+
+  .policy {
+    margin-left: 0px;
+  } 
+
+}
+
+
+

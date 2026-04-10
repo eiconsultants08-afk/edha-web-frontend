@@ -1,0 +1,166 @@
+.profile-container {
+  padding: 24px;
+}
+
+/* HEADER */
+.profile-header {
+  height: 140px;
+  background: #009268;
+  border-radius: 20px;
+  position: relative;
+}
+
+.profile-avatar {
+  position: absolute;
+  bottom: -25px;
+  left: 24px;
+  background: #009268;
+  color: white;
+  font-weight: bold;
+  font-size: 28px;
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  border: 5px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* NAME */
+.profile-name {
+  margin-top: 40px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.profile-role {
+  color: gray;
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+/* MAIN GRID */
+.admin-profile-grid {
+  display: grid;
+  grid-template-columns: 280px 280px 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.admin-profile-grid .card-primary {
+  height: 100%;
+}
+
+/* STAT CARD - same feel as technician profile */
+.profile-stat-card {
+  background: rgba(0, 146, 104, 0.08);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: none;
+}
+
+.profile-stat-number {
+  font-size: 42px;
+  font-weight: 700;
+  color: #009268;
+  line-height: 1;
+}
+
+.profile-stat-label {
+  margin-top: 10px;
+  color: gray;
+  font-size: 20px;
+}
+
+/* CONTACT INFO */
+.admin-contact-card {
+  padding: 28px;
+}
+
+.profile-section-title {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #111827;
+}
+
+.profile-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-info-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.profile-info-icon {
+  background: #e6f4ef;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 12px;
+  color: #009268;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.profile-info-label {
+  font-size: 13px;
+  color: gray;
+  margin-bottom: 4px;
+}
+
+.profile-info-value {
+  font-weight: 500;
+  font-size: 20px;
+  color: #111827;
+  word-break: break-word;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .admin-profile-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-contact-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .admin-profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-name {
+    font-size: 28px;
+  }
+
+  .profile-role {
+    font-size: 16px;
+  }
+
+  .profile-section-title {
+    font-size: 24px;
+  }
+
+  .profile-info-value {
+    font-size: 18px;
+  }
+}

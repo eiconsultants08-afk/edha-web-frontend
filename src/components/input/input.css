@@ -1,0 +1,54 @@
+.input-content{
+    position: relative;
+}
+.input-icons{
+    color: var(--text-secondary);
+    position: absolute;
+    top: 10px;
+    left:12.5px 
+}
+
+.input-pointer{
+    cursor: pointer !important;
+}
+
+.input-field,.unhovered {
+    width: 100%;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    text-align: left;
+    outline: none;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    padding:7.2px 11px;
+}
+
+.input-checkbox{
+    display: flex;
+    gap: 10px;
+    font-size: 10px;
+}
+
+.input-field:hover {
+    background-color: var(--input-hover);
+}
+
+.input-label{
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 1px;
+}
+  
+.password-btn {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    color: var(--text-secondary);
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

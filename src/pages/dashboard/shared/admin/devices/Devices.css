@@ -1,0 +1,172 @@
+.devices-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.devices-list-header {
+  margin-bottom: 4px;
+}
+
+.devices-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.devices-search-icon {
+  font-size: 20px;
+  color: #059669;
+  flex-shrink: 0;
+}
+
+.devices-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 15px;
+  color: #111827;
+}
+
+.devices-empty {
+  text-align: center;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.devices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.device-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+  height: 100%;
+}
+
+.device-card-top {
+  display: flex;
+  gap: 18px;
+  padding: 20px;
+  align-items: flex-start;
+  min-height: 190px;
+}
+
+.device-card-icon {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 18px;
+  background: #059669;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.device-card-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.device-card-main-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.device-card-id {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  word-break: break-word;
+}
+
+.device-card-serial,
+.device-card-model {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: #6b7280;
+  word-break: break-word;
+}
+
+.device-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.device-status-pill {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.device-status-active {
+  background: #e7f7ef;
+  color: #11865b;
+}
+
+.device-status-maintenance {
+  background: #fff4e5;
+  color: #a05a00;
+}
+
+.device-status-inactive {
+  background: #fdecec;
+  color: #b42318;
+}
+
+@media (max-width: 1400px) {
+  .devices-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .devices-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .device-card-top {
+    min-height: auto;
+  }
+
+  .device-card-main-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .device-card-id {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  .device-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .device-card-actions {
+    justify-content: stretch;
+  }
+
+  .device-card-actions .btn-primary,
+  .device-card-actions .btn-secondary {
+    width: 100%;
+  }
+}

@@ -1,0 +1,22 @@
+.header-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.head-text h1{
+    color: black;
+}
+
+.head-text p, .head-text span{
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+.time-display p{
+    color: black;
+    font-size: 22px;
+    font-weight: 600;
+}

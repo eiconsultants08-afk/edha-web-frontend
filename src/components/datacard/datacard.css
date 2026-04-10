@@ -1,0 +1,76 @@
+.datacard-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+}
+
+.datacard-items{
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary);
+    gap: 20px;
+}
+
+.datacard-container>div {
+    flex: 1;
+    border: none;
+    padding: 15px;
+}
+
+.card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 27%;
+    height: 70px;
+    border-radius: 100%;
+    background-color: var(--primary);
+}
+
+.card-content {
+    width: calc(100% - 27%);
+}
+
+.card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.card-value {
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+@media screen and (max-width: 800px) {
+    .datacard-container .card-secondary {
+        width: 100%;
+    }
+    
+    .datacard-container {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        padding-bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .datacard-container .card-secondary {
+        width: 100%;
+    }
+
+    .datacard-container {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    .datacard-container{
+        grid-template-columns: repeat(1,1fr);
+    }
+}

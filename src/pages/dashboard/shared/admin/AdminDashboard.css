@@ -1,0 +1,269 @@
+.analytics-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.analytics-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.analytics-title {
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.analytics-subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.analytics-range-select {
+  min-width: 220px;
+  height: 42px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0 14px;
+  outline: none;
+  background: #fff;
+  font-size: 14px;
+  color: #111827;
+}
+
+/* 3-column dashboard grid */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.analytics-grid-item {
+  min-width: 0;
+}
+
+.analytics-section-header {
+  background: #1a6b40;
+  padding: 14px 18px;
+}
+
+.analytics-section-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.analytics-section-body {
+  padding: 20px;
+}
+
+.chart-box {
+  width: 100%;
+  min-height: 280px;
+}
+
+.analytics-empty,
+.analytics-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.analytics-tooltip {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.analytics-tooltip-label {
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #111827;
+}
+
+.analytics-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.analytics-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.analytics-chip {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.analytics-chip-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.abnormal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.abnormal-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.abnormal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.abnormal-track {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.abnormal-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.abnormal-meta {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.analytics-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.analytics-modal {
+  width: min(900px, 100%);
+  max-height: 75vh;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+
+.analytics-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a6b40;
+  color: #fff;
+  padding: 16px 20px;
+}
+
+.analytics-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.analytics-modal-header button {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.analytics-session-list {
+  padding: 8px 20px 20px;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.analytics-session-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.analytics-session-patient {
+  font-weight: 600;
+  color: #111827;
+}
+
+.analytics-session-tech {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.analytics-session-right {
+  text-align: right;
+  font-size: 14px;
+}
+
+.analytics-session-status {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  background: #e7f7ef;
+  color: #11865b;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 1200px) {
+  .analytics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .analytics-title {
+    font-size: 24px;
+  }
+
+  .analytics-range-select {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}

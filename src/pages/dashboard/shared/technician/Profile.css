@@ -1,0 +1,107 @@
+.profile-container {
+  padding: 24px;
+}
+
+/* HEADER */
+.profile-header {
+  height: 140px;
+  background: #009268;
+  border-radius: 20px;
+  position: relative;
+}
+
+.profile-avatar {
+  position: absolute;
+  bottom: -25px;
+  left: 24px;
+  background: #009268;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 18px;
+  border-radius: 12px;
+  border: 4px solid white;
+}
+
+/* NAME */
+.profile-name {
+  margin-top: 40px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.profile-role {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.profile-main-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* STAT CARD */
+.profile-stat-card {
+  background: rgba(0, 146, 104, 0.08);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-stat-number {
+  font-size: 32px;
+  font-weight: bold;
+  color: #009268;
+}
+
+.profile-stat-label {
+  margin-top: 8px;
+  color: gray;
+}
+
+/* CONTACT INFO */
+.profile-section-title {
+  margin-bottom: 20px;
+}
+
+.profile-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-info-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.profile-info-icon {
+  background: #e6f4ef;
+  padding: 10px;
+  border-radius: 10px;
+  color: #009268;
+}
+
+.profile-info-label {
+  font-size: 12px;
+  color: gray;
+}
+
+.profile-info-value {
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .profile-main-grid {
+    grid-template-columns: 1fr;
+  }
+}

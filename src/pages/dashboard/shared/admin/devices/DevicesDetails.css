@@ -1,0 +1,218 @@
+.device-detail-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.device-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.device-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.device-header-text {
+  min-width: 0;
+}
+
+.device-icon-box {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: #059669;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+}
+
+.device-serial {
+  margin: 0 0 4px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+  word-break: break-word;
+}
+
+.device-model {
+  margin: 0;
+  font-size: 15px;
+  color: #6b7280;
+}
+
+.device-status-pill {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.device-status-active {
+  background: #e7f7ef;
+  color: #11865b;
+}
+
+.device-status-maintenance {
+  background: #fff4e5;
+  color: #a05a00;
+}
+
+.device-status-inactive {
+  background: #fdecec;
+  color: #b42318;
+}
+
+.device-detail-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.device-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.device-info-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.device-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+  border-top: 1px solid #eef2f7;
+}
+
+.device-info-label {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.device-info-value {
+  color: #111827;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}
+
+.assigned-tech-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #f9fafb;
+  margin-bottom: 14px;
+}
+
+.assigned-tech-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: #059669;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  min-width: 46px;
+}
+
+.assigned-tech-info h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: #111827;
+}
+
+.assigned-tech-info p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.device-reassign-box {
+  width: 100%;
+  border: none;
+  background: #f9fafb;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #059669;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.device-reassign-box:hover {
+  background: #f3f4f6;
+}
+
+.device-unassign-btn {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.device-unassign-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.device-empty-text {
+  margin: 0 0 14px;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.device-unassigned-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .device-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .device-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .device-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .device-info-value {
+    text-align: left;
+  }
+}

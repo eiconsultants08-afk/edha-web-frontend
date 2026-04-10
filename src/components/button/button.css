@@ -1,0 +1,44 @@
+.btn-primary button,.btn-secondary button  {
+  background-color: var(--btn-primary);
+  color: var( --btn-text);
+  font-size: 14px;
+  font-weight: 600;
+  border: transparent;
+  cursor: pointer;
+  padding: 10px 15px;  
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: var(--hover-effect);
+  width: 130px;
+}
+
+.btn-secondary button {
+  background-color: var(--btn-secondary);
+  color: #4a4f57;
+}  
+
+.btn-primary button:hover {
+  background-color: var(--btn-primary-hover);
+  color: var( --btn-primary);
+  border: 1px solid var(--btn-primary);
+}
+
+.btn-secondary button:hover{
+  color: var( --btn-primary);
+  border: 1px solid var( --btn-primary);
+}
+
+@media screen and (max-width: 600px) {
+
+  .btn-primary button,.btn-secondary button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width:500px) {
+    .btn-primary button,.btn-secondary button  {
+  width: 100%;
+}
+  
+}
