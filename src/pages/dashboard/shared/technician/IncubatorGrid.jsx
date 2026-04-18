@@ -977,22 +977,6 @@ export default function IncubatorGrid() {
 
             {!slot.testName ? (
               <>
-                {LOCKED_TEST_CATALOGUE.slice(0, 4).map((test) => (
-                  <button
-                    key={test.name}
-                    className="incubator-slot-btn"
-                    onClick={() => assignQuickTest(slot.id, test.name)}
-                  >
-                    Quick: {test.name}
-                  </button>
-                ))}
-
-                <button
-                  className="incubator-slot-btn incubator-slot-btn-primary"
-                  onClick={() => assignCustomTest(slot.id)}
-                >
-                  Assign Custom/Test + Patient
-                </button>
               </>
             ) : (
               <>

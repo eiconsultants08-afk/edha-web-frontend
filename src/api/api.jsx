@@ -249,7 +249,6 @@ export async function getAdminTestTypeSessions(
 }
 
 
-
 /* ---------------- TECHNICIAN APIs ---------------- */
 
   export async function getAllPatients(rows, page) {
@@ -285,7 +284,6 @@ export async function addPatient(body) {
   return await post(getUrl("technician", "add/patient"), body, token);
 }
 
-
 /* ADD TEST RESULT */
 export async function addPatientTestResult(body) {
 
@@ -312,10 +310,8 @@ export async function getTechnicianDeviceById(device_id) {
   return await get(getUrl("technician", ["device", device_id]), token);
 }
 
-
 /* ADD UART TEST RESULT */
-export async function addUartTestResult(body) {
-
+export async function saveUartPatientTestResult(body) {
   const { isLoginRequired, token } = await getAuthToken();
 
   if (isLoginRequired) {
@@ -323,9 +319,8 @@ export async function addUartTestResult(body) {
     return { success: false, message: "User is already logged out." };
   }
 
-  return await post(getUrl("technician", "uart-test"), body, token);
+  return await post(getUrl("technician", "/uart/test-result"), body, token);
 }
-
 
 /* GET PATIENT BY REFERENCE ID */
 export async function getPatientByReferenceId(reference_id) {
@@ -356,7 +351,6 @@ export async function getPatientTestHistory(patient_id) {
     token
   );
 }
-
 
 export async function getPatientById(patient_id) {
   const { isLoginRequired, token } = await getAuthToken();
@@ -431,7 +425,6 @@ export async function completeTestSession(history_id, body) {
   );
 }
 
-
 export async function getSessionReport(history_id) {
   const { isLoginRequired, token } = await getAuthToken();
 
@@ -490,7 +483,5 @@ export async function removeTechnicianById(technician_id) {
 
   return await deleteRequest(getUrl("admin", `technician/${technician_id}`), token);
 }
-
-
 
 
