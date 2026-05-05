@@ -112,8 +112,8 @@ export default function Patients() {
 
   const columns = [
     {
-      name: "Reference ID",
-      key: "reference_id",
+      name: "Patient ID",
+      key: "patient_id",
       type: "link",
       baseUrl: "/technician/add-test-result",
       params: "patient_id",

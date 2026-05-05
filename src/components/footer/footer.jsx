@@ -21,13 +21,13 @@ const Footer = () => {
 
       <div className='footer-text'>
         <div>
-          <p><a href='https://weathercastsolutions.com/' target="_blank" rel="noreferrer" className='weatherCast-link'>Powered by WeatherCast Solutions</a></p>
+          <p><a href='https://www.edhaainnovations.com/' target="_blank" rel="noreferrer" className='weatherCast-link'>Powered by Edhaa Innovations</a></p>
         </div>
         <div className='footer-links'>
-          <p onClick={openModal} className='policy'>Privacy Policy</p>
-          {showmodal && <Modal close={closeModal} />}
-          <p style={{ margin: '0 3px' }}>|</p>
-          <p onClick={()=>navigate("/contact")} className='weatherCast-contact'>Contact</p>
+          {/* <p onClick={openModal} className='policy'>Privacy Policy</p> */}
+          {/* {showmodal && <Modal close={closeModal} />} */}
+          {/* <p style={{ margin: '0 3px' }}>|</p> */}
+          {/* <p onClick={()=>navigate("/contact")} className='weatherCast-contact'>Contact</p> */}
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./UARTConsole.css";
-import { addUartTestResult } from "../../../../api/api";
+// import { addUartTestResult } from "../../../../api/api";
 
 export default function UARTConsole() {
   const consoleRef = useRef(null);
