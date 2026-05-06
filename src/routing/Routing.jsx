@@ -18,6 +18,8 @@ import AssignDeviceTechnician from "../pages/dashboard/shared/admin/devices/Assi
 import DevicesDetails from "../pages/dashboard/shared/admin/devices/DevicesDetails";
 import AdminProfile from "../pages/dashboard/shared/admin/AdminProfile";
 import IncubatorGrid from "../pages/dashboard/shared/technician/IncubatorGrid";
+import AdminPatients from "../pages/dashboard/shared/admin/patients/Patients";
+import AdminPatientDetails from "../pages/dashboard/shared/admin/AdminPatientDetails";
 
 export default function Routing() {
 
@@ -48,6 +50,9 @@ export default function Routing() {
 
           <Route path="/admin/profile" element={<AdminProfile />} />
 
+          <Route path="/patients" element={<AdminPatients />} />
+
+          <Route path="/patient/:patient_id" element={<AdminPatientDetails />} />
         </>
       )}
 

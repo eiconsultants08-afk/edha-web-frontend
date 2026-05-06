@@ -56,6 +56,11 @@ export default function Sidebar() {
           icon: <FaTools size={20} />,
         },
         {
+          path: "/patients",
+          name: "Patients",
+          icon: <FaUserAlt />,
+        },
+        {
           path: "/devices",
           name: "Devices",
           icon: <TbDeviceImacCog size={22} />,

@@ -248,6 +248,77 @@ export async function getAdminTestTypeSessions(
   return await get(getUrl("admin", `analytics/test-type-sessions?${query}`), token);
 }
 
+export async function getAdminPatients(rows = 10, page = 1) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("admin", `patients/${rows}/${page}`), token);
+}
+
+// GET ADMIN PATIENT BY ID
+export async function getPatientByIdAdmin(patient_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("admin", `patient/${patient_id}`), token);
+}
+
+// ADD ADMIN PATIENT
+export async function addAdminPatient(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await post(getUrl("admin", "add/patient"), body, token);
+}
+
+// DOWNLOAD ADMIN EXCEL REPORT
+export async function downloadAdminCsvReport(params = {}) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  const query = new URLSearchParams(params).toString();
+
+  const url = query
+    ? getUrl("admin", `reports/csv?${query}`)
+    : getUrl("admin", "reports/csv");
+
+  return await get(url, token);
+}
+
+// DOWNLOAD ADMIN PDF REPORT
+export async function downloadAdminPdfReport(params = {}) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  const query = new URLSearchParams(params).toString();
+
+  const url = query
+    ? getUrl("admin", `reports/pdf?${query}`)
+    : getUrl("admin", "reports/pdf");
+
+  return await get(url, token);
+}
+
 
 /* ---------------- TECHNICIAN APIs ---------------- */
 

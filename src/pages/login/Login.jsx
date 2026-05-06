@@ -2,13 +2,10 @@ import React, { useContext } from "react";
 import "./Login.css";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import {
-  notifyUser,
-  updateTokenAndUserDetails,
-} from "../../shared/utils/utils.jsx";
+import { notifyUser } from "../../shared/utils/utils.jsx";
 import { AuthContext } from "../../context/AuthProvider";
 import { UserContext } from "../../context/UserProvider";
-import { login } from "../../api/api.jsx";
+import { login, getUserProfile } from "../../api/api.jsx";
 import Card from "../../components/card/card.jsx";
 import TextBox from "../../components/input/input.jsx";
 import Button from "../../components/button/button.jsx";
@@ -25,24 +22,36 @@ export default function Login() {
 
     const body = { username, password };
 
-    const { success, message } = await login(body);
+    const loginRes = await login(body);
 
-    if (success) {
-      await updateTokenAndUserDetails(updateAuth, updateUser, true);
+    if (!loginRes.success) {
+      notifyUser("error", loginRes.message, "bottom-center", "0 32px 5px");
+      return;
+    }
 
-      const savedUser = JSON.parse(localStorage.getItem("user"));
+    const profileRes = await getUserProfile();
 
-      if (savedUser?.role === "ADMIN") {
-        navigate("/admin/dashboard");
-      } else if (savedUser?.role === "TECHNICIAN") {
-        navigate("/technician/patients");
-      } else if (savedUser?.role === "SUPER_ADMIN") {
-        navigate("/dashboard");
-      } else {
-        navigate("/");
-      }
+    if (!profileRes?.success) {
+      notifyUser("error", "Failed to load user profile", "bottom-center");
+      return;
+    }
+
+    const user = profileRes.data?.user || profileRes.data;
+
+    updateAuth(user);
+    updateUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    notifyUser("success", "Login Successful", "top-center", "0 25px 5px");
+
+    if (user?.role === "ADMIN") {
+      navigate("/admin/dashboard", { replace: true });
+    } else if (user?.role === "TECHNICIAN") {
+      navigate("/technician/patients", { replace: true });
+    } else if (user?.role === "SUPER_ADMIN") {
+      navigate("/dashboard", { replace: true });
     } else {
-      notifyUser("error", message, "bottom-center", "0 32px 5px");
+      navigate("/login", { replace: true });
     }
   };
 
