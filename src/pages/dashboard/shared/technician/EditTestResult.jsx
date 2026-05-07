@@ -22,36 +22,44 @@ function refRangeLabel(tt, gender) {
     g === "MALE" && tt.male_min != null
       ? Number(tt.male_min)
       : g === "FEMALE" && tt.female_min != null
-      ? Number(tt.female_min)
-      : tt.normal_min != null
-      ? Number(tt.normal_min)
-      : null;
+        ? Number(tt.female_min)
+        : tt.normal_min != null
+          ? Number(tt.normal_min)
+          : null;
 
   const max =
     g === "MALE" && tt.male_max != null
       ? Number(tt.male_max)
       : g === "FEMALE" && tt.female_max != null
-      ? Number(tt.female_max)
-      : tt.normal_max != null
-      ? Number(tt.normal_max)
-      : null;
+        ? Number(tt.female_max)
+        : tt.normal_max != null
+          ? Number(tt.normal_max)
+          : null;
 
   if (min == null || max == null) return null;
   return `${min} - ${max}${tt.unit ? " " + tt.unit : ""}`;
 }
 
-const qualitativeTests = [
-  "hiv",
-  "hbsag",
-  "hcv",
-  "dengue",
-  "malaria",
-  "covid",
-];
-
-const isQualitative = (tt) => {
+const getDropdownOptions = (tt) => {
   const name = (tt?.name || tt?.test_type_name || "").toLowerCase().trim();
-  return qualitativeTests.some((t) => name.includes(t));
+  const ref = (tt?.reference_text || "").trim();
+
+  if (
+    (name === "colour" || name === "color" || name === "transparency") &&
+    ref
+  ) {
+    return [ref];
+  }
+
+  if (tt?.normal_min == null && tt?.normal_max == null) {
+    return ["Positive", "Negative"];
+  }
+
+  return null;
+};
+
+const isCustomValue = (id, values) => {
+  return values[id] === "__custom__";
 };
 
 export default function EditTestResult() {
@@ -68,6 +76,7 @@ export default function EditTestResult() {
   const [notes, setNotes] = useState(session?.notes || "");
   const [touched, setTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [customValues, setCustomValues] = useState({});
 
   useEffect(() => {
     if (!session) return;
@@ -76,7 +85,7 @@ export default function EditTestResult() {
     sessionResults.forEach((r) => {
       const tt = r.testType || {};
 
-      if (isQualitative(tt)) {
+      if (getDropdownOptions(tt)) {
         if (r.value_text) initial[r.test_type_id] = r.value_text;
       } else {
         if (r.value_num != null) initial[r.test_type_id] = String(r.value_num);
@@ -96,7 +105,7 @@ export default function EditTestResult() {
 
       if (!raw) return;
 
-      if (!isQualitative(tt) && isNaN(Number(raw))) {
+      if (!getDropdownOptions(tt) && isNaN(Number(raw))) {
         e[id] = "Must be a number";
       }
     });
@@ -105,7 +114,7 @@ export default function EditTestResult() {
   }, [values, sessionResults]);
 
   const filledCount = sessionResults.filter(
-    (r) => String(values[r.test_type_id] || "").trim() !== ""
+    (r) => String(values[r.test_type_id] || "").trim() !== "",
   ).length;
 
   const allFilled = filledCount === sessionResults.length;
@@ -118,8 +127,12 @@ export default function EditTestResult() {
         const tt = r.testType || {};
         const id = r.test_type_id;
 
-        return isQualitative(tt)
-          ? { test_type_id: id, value_text: values[id] }
+        return getDropdownOptions(tt)
+          ? {
+              test_type_id: id,
+              value_text:
+                values[id] === "__custom__" ? customValues[id] : values[id],
+            }
           : { test_type_id: id, value_num: Number(values[id]) };
       });
 
@@ -223,6 +236,8 @@ export default function EditTestResult() {
             const unit = tt.unit || "";
             const range = refRangeLabel(tt, patientGender);
             const err = touched ? errors[id] : null;
+            const dropdownOptions = getDropdownOptions(tt);
+            const showCustomInput = values[id] === "__custom__";
 
             return (
               <div key={id} style={{ marginBottom: "20px" }}>
@@ -242,32 +257,57 @@ export default function EditTestResult() {
                   <span>{unit || "-"}</span>
                 </div>
 
-                {isQualitative(tt) ? (
-                  <select
-                    value={values[id] || ""}
-                    onChange={(e) =>
-                      setValues((prev) => ({
-                        ...prev,
-                        [id]: e.target.value,
-                      }))
-                    }
-                    style={{
-                      width: "100%",
-                      padding: "12px",
-                      borderRadius: "10px",
-                      border: "1px solid #ccc",
-                      outline: "none",
-                    }}
-                  >
-                    <option value="">Select Result</option>
-                    <option value="Positive">Positive</option>
-                    <option value="Negative">Negative</option>
-                  </select>
+                {dropdownOptions ? (
+                  <>
+                    <select
+                      value={values[id] || ""}
+                      onChange={(e) =>
+                        setValues((prev) => ({
+                          ...prev,
+                          [id]: e.target.value,
+                        }))
+                      }
+                      style={{
+                        width: "100%",
+                        padding: "12px",
+                        borderRadius: "10px",
+                        border: "1px solid #ccc",
+                        outline: "none",
+                      }}
+                    >
+                      <option value="">Select Result</option>
+
+                      {dropdownOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+
+                      <option value="__custom__">Custom</option>
+                    </select>
+
+                    {showCustomInput && (
+                      <div style={{ marginTop: "10px" }}>
+                        <TextBox
+                          name={`custom_${id}`}
+                          type="text"
+                          value={customValues[id] || ""}
+                          onChange={(e) =>
+                            setCustomValues((prev) => ({
+                              ...prev,
+                              [id]: e.target.value,
+                            }))
+                          }
+                          placeholder="Enter custom result"
+                        />
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <>
                     <TextBox
                       name={`value_${id}`}
-                      type="number"
+                      type="text"
                       value={values[id] || ""}
                       onChange={(e) =>
                         setValues((prev) => ({

@@ -332,7 +332,7 @@ export default function AddTestResult() {
 
     const body = {
       patient_id: resolvedPatientId,
-      test_date: new Date(sessionData.test_date).toISOString(),
+      test_date: new Date().toISOString(),
       device_id: sessionData.device_id.trim(),
       notes: sessionData.notes?.trim() || null,
       category: selectedCategory,
