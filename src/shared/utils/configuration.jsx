@@ -4,11 +4,11 @@ export const configuration = {
         wsBaseUrl: "ws://localhost:3030/ws"
     },
     stg: {
-        baseUrl: "https://testapi.weathercastsolutions.com/",
-        wsBaseUrl: "wss://testapi.weathercastsolutions.com/ws"
+        baseUrl: "https://testapi.edhaaenovations.com/",
+        wsBaseUrl: "wss://testapi.edhaaenovations.com/ws"
     },
     prod: {
-        baseUrl: "https://energybackend.weathercastsolutions.com/",
-        wsBaseUrl: "wss://api.weathercastsolutions.com/ws"
+        baseUrl: "https://biocheq.edhaaenovations.com/",
+        wsBaseUrl: "wss://api.edhaaenovations.com/ws"
     }
 };

@@ -15,17 +15,13 @@
   flex-wrap: wrap; 
 }
 
-.footer-text, .weatherCast-link, .policy, .weatherCast-contact{
+.footer-text, .eddha-link, .policy, .eddha-contact{
   color: var(--black);
 }
-.policy:hover,.weatherCast-link:hover, .weatherCast-contact:hover{
+.policy:hover,.eddha-link:hover, .eddha-contact:hover{
   color: var(--primary);
 }
 
-.weatherCast-contact{
-  text-decoration: underline;
-  cursor: pointer;
-}
 
 .footer-links{
   display: flex;

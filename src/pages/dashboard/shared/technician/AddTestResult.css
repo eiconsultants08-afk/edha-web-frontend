@@ -547,6 +547,77 @@
   background: #f9fafb;
 }
 
+.date-card {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #f3f4f6;
+}
+
+.date-form {
+  width: 100%;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.date-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.date-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-field label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.date-field input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.date-field input:focus {
+  border-color: #3b82f6;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.button-wrapper button {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 12px 35px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-wrapper button:hover {
+  background: #2563eb;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .patient-info-grid {
@@ -596,4 +667,17 @@
     justify-content: space-between;
     gap: 12px;
 }
+
+.date-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .button-wrapper {
+    justify-content: center;
+  }
+
+  .button-wrapper button {
+    width: 100%;
+  }
 }

@@ -123,7 +123,7 @@ export default function Patients() {
     { name: "Address", key: "address", type: "text" },
     { name: "Phone", key: "phone", type: "text" },
     { name: "Email", key: "email", type: "text" },
-    { name: "Organization", key: "org_id", type: "text" },
+    { name: "Organization", key: "org_name", type: "text" },
     { name: "Created By", key: "created_by_name", type: "text" },
   ];
 
@@ -141,7 +141,7 @@ export default function Patients() {
               phone: maskPhone(item.phone || ""),
               address: item.address || "----",
               email: item.email || "----",
-              org_id: item.org_id || "----",
+              org_id: item.org_name || "----",
               created_by_name: item.created_by_name || "----",
             }))
           : [];

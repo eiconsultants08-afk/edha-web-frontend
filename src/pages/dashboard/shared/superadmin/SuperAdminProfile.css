@@ -1,0 +1,145 @@
+.superadmin-profile-container {
+  padding: 24px;
+}
+
+/* HEADER */
+.superadmin-profile-header {
+  height: 140px;
+  background: #009268;
+  border-radius: 20px;
+  position: relative;
+}
+
+.superadmin-profile-avatar {
+  position: absolute;
+  bottom: -25px;
+  left: 24px;
+  background: #009268;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  padding: 18px;
+  min-width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  border: 4px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* NAME */
+.superadmin-profile-name {
+  margin-top: 42px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.superadmin-profile-role {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.superadmin-profile-main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* STATS */
+.superadmin-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.superadmin-profile-stat-card {
+  background: rgba(0, 146, 104, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #009268;
+}
+
+.superadmin-profile-stat-card svg {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.superadmin-profile-stat-number {
+  font-size: 34px;
+  font-weight: bold;
+  color: #009268;
+}
+
+.superadmin-profile-stat-label {
+  margin-top: 6px;
+  color: gray;
+}
+
+/* CONTACT INFO */
+.superadmin-profile-section-title {
+  margin-bottom: 20px;
+}
+
+.superadmin-profile-info-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.superadmin-profile-info-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.superadmin-profile-info-icon {
+  background: #e6f4ef;
+  padding: 10px;
+  border-radius: 10px;
+  color: #009268;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.superadmin-profile-info-label {
+  font-size: 12px;
+  color: gray;
+}
+
+.superadmin-profile-info-value {
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .superadmin-profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .superadmin-profile-info-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .superadmin-profile-container {
+    padding: 16px;
+  }
+
+  .superadmin-profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .superadmin-profile-name {
+    font-size: 24px;
+  }
+}

@@ -49,7 +49,7 @@ export default function Login() {
     } else if (user?.role === "TECHNICIAN") {
       navigate("/technician/patients", { replace: true });
     } else if (user?.role === "SUPER_ADMIN") {
-      navigate("/dashboard", { replace: true });
+      navigate("/superadmin/dashboard", { replace: true });
     } else {
       navigate("/login", { replace: true });
     }

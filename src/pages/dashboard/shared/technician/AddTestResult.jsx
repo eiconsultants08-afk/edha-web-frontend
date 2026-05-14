@@ -623,6 +623,14 @@ export default function AddTestResult() {
     return `${visible}${masked}@${domain}`;
   };
 
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+
+  const handleDateSubmit = (e) => {
+    e.preventDefault();
+    console.log({ fromDate, toDate });
+  };
+
   return (
     <div className="add-test-page">
       <Card ctype="primary" style={{ padding: "20px", marginBottom: "20px" }}>
@@ -699,6 +707,34 @@ export default function AddTestResult() {
           <p>No patient details found</p>
         )}
       </Card>
+
+      {/* <Card className="date-card"> */}
+        <form onSubmit={handleDateSubmit} className="date-form">
+          <div className="date-grid" >
+            <div className="date-field">
+              <label>From Date</label>
+              <input
+                type="datetime-local"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+              />
+            </div>
+
+            <div className="date-field">
+              <label>To Date</label>
+              <input
+                type="datetime-local"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="button-wrapper">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      {/* </Card> */}
 
       <div className="history-header">
         <h2 className="section-title">Test History</h2>

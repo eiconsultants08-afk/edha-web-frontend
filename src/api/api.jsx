@@ -555,4 +555,274 @@ export async function removeTechnicianById(technician_id) {
   return await deleteRequest(getUrl("admin", `technician/${technician_id}`), token);
 }
 
+/* ---------------- SUPER ADMIN APIs ---------------- */
 
+export async function getSuperAdminDashboard() {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", "dashboard"), token);
+}
+
+// Organizations
+export async function getSuperAdminOrganizations(rows = 10, page = 1) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `organizations/${rows}/${page}`), token);
+}
+
+export async function getSuperAdminOrganizationById(org_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `organization/${org_id}`), token);
+}
+
+export async function createSuperAdminOrganization(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await post(getUrl("superadmin", "add/organization"), body, token);
+}
+
+export async function updateSuperAdminOrganization(org_id, body) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await put(getUrl("superadmin", `organization/${org_id}`), body, token);
+}
+
+// Technicians
+export async function getSuperAdminTechnicians(rows = 10, page = 1) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `technicians/${rows}/${page}`), token);
+}
+
+export async function getSuperAdminTechnicianById(technician_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `technician/${technician_id}`), token);
+}
+
+export async function createSuperAdminTechnician(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await post(getUrl("superadmin", "add/technician"), body, token);
+}
+
+export async function updateSuperAdminTechnician(technician_id, body) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await put(getUrl("superadmin", `technician/${technician_id}`), body, token);
+}
+
+// Tests
+export async function getSuperAdminTests(rows = 10, page = 1) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `tests/${rows}/${page}`), token);
+}
+
+export async function getSuperAdminTestById(test_type_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `test/${test_type_id}`), token);
+}
+
+export async function updateSuperAdminTest(test_type_id, body) {
+  const { isLoginRequired, token } = await getAuthToken();
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await put(getUrl("superadmin", `test/${test_type_id}`), body, token);
+}
+
+export async function getSuperAdminAnalytics() {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", "analytics"), token);
+}
+
+// Plans
+export async function getSuperAdminPlans(rows = 10, page = 1) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `plans/${rows}/${page}`), token);
+}
+
+export async function getSuperAdminPlanById(plan_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `plan/${plan_id}`), token);
+}
+
+export async function createSuperAdminPlan(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await post(getUrl("superadmin", "add/plan"), body, token);
+}
+
+export async function updateSuperAdminPlan(plan_id, body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await put(getUrl("superadmin", `plan/${plan_id}`), body, token);
+}
+
+// Admins
+export async function getSuperAdminAdmins(rows = 10, page = 1) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `admins/${rows}/${page}`), token);
+}
+
+export async function getSuperAdminAdminById(admin_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `admin/${admin_id}`), token);
+}
+
+export async function createSuperAdminAdmin(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await post(getUrl("superadmin", "add/admin"), body, token);
+}
+
+export async function updateSuperAdminAdmin(admin_id, body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await put(getUrl("superadmin", `admin/${admin_id}`), body, token);
+}
+
+
+// Super Admin Devices
+export async function getSuperAdminDevices(rows = 10, page = 1) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `devices/${rows}/${page}`), token);
+}
+
+export async function getSuperAdminDeviceById(device_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await get(getUrl("superadmin", `device/${device_id}`), token);
+}
+
+export async function createSuperAdminDevice(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await post(getUrl("superadmin", "add/device"), body, token);
+}
+
+export async function updateSuperAdminDevice(device_id, body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await put(getUrl("superadmin", `device/${device_id}`), body, token);
+}

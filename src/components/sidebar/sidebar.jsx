@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaTerminal, FaTools, FaUserAlt } from "react-icons/fa";
+import { FaTerminal, FaTools, FaUserAlt, FaUserShield } from "react-icons/fa";
 import { TbDeviceImacCog } from "react-icons/tb";
 import { IoIosAnalytics } from "react-icons/io";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
@@ -10,6 +10,7 @@ import { UserContext } from "../../context/UserProvider";
 import Button from "../button/button";
 import { logout } from "../../api/api";
 import { notifyUser } from "../../shared/utils/utils";
+import { MdDevices } from "react-icons/md";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,6 +74,48 @@ export default function Sidebar() {
       );
     }
 
+    /* ===== SUPER ADMIN ===== */
+
+    if (auth?.role === "SUPER_ADMIN") {
+      menuItem.push(
+        {
+          path: "/superadmin/dashboard",
+          name: "Dashboard",
+          icon: <IoIosAnalytics size={22} />,
+        },
+        {
+          path: "/superadmin/organizations",
+          name: "Organizations",
+          icon: <TbDeviceImacCog size={22} />,
+        },
+        {
+          name: "Admins",
+          path: "/superadmin/admins",
+          icon: <FaUserShield />,
+        },
+        {
+          path: "/superadmin/technicians",
+          name: "Technicians",
+          icon: <FaTools size={20} />,
+        },
+        {
+          path: "/superadmin/devices",
+          name: "Devices",
+          icon: <MdDevices size={22} />,
+        },
+        {
+          path: "/superadmin/tests",
+          name: "Tests",
+          icon: <FaTerminal size={20} />,
+        },
+        {
+          path: "/superadmin/profile",
+          name: "Profile",
+          icon: <FaUserAlt size={20} />,
+        },
+      );
+    }
+
     /* ===== TECHNICIAN ===== */
     if (auth?.role === "TECHNICIAN") {
       menuItem.push(
@@ -95,7 +138,7 @@ export default function Sidebar() {
           path: "/technician/profile",
           name: "Profile",
           icon: <FaUserAlt />,
-        }
+        },
       );
     }
 
