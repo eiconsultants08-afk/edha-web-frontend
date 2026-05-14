@@ -446,7 +446,7 @@ export default function AddTestResult() {
 
         return {
           Date: formatDateTime(session.test_date),
-          TestName: tt.name || item.test_name || "Test",
+          TestName: tt.full_name || item.test_name || "Test",
           Result: value,
           Unit: tt.unit || item.unit || "-",
           Range: range || "-",
@@ -511,7 +511,7 @@ export default function AddTestResult() {
 
         return {
           Date: formatDateTime(session.test_date),
-          TestName: tt.name || item.test_name || "Test",
+          TestName: tt.full_name || item.test_name || "Test",
           Result: value,
           Unit: tt.unit || item.unit || "-",
           Range: range || "-",
