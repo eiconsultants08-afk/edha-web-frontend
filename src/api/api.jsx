@@ -826,3 +826,14 @@ export async function updateSuperAdminDevice(device_id, body) {
 
   return await put(getUrl("superadmin", `device/${device_id}`), body, token);
 }
+
+export async function addSuperAdminTest(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await post(getUrl("superadmin", "add/test"), body, token);
+}

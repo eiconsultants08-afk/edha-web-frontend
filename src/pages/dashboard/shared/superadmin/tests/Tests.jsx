@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   getSuperAdminTests,
   updateSuperAdminTest,
+  addSuperAdminTest,
 } from "../../../../../api/api";
 
 import Table from "../../../../../components/table/table";
@@ -199,13 +200,13 @@ export default function Tests() {
       : value;
   }
 
+  function resetForm() {
+    setFormData(initialForm);
+  }
+
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function resetForm() {
-    setFormData(initialForm);
   }
 
   function handleEdit(test) {
@@ -232,15 +233,8 @@ export default function Tests() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    if (!isEdit) {
-      alert("Please select a test to edit");
-      return;
-    }
-
-    const body = {
+  function buildBody() {
+    return {
       name: formData.name,
       full_name: formData.full_name || null,
       unit: formData.unit,
@@ -258,15 +252,34 @@ export default function Tests() {
       is_qualitative: formData.is_qualitative === "true",
       specimen_type: formData.specimen_type || null,
     };
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!formData.name.trim()) {
+      alert("Short name is required");
+      return;
+    }
+
+    if (!formData.unit.trim()) {
+      alert("Unit is required");
+      return;
+    }
 
     setLoading(true);
 
-    const res = await updateSuperAdminTest(formData.test_type_id, body);
+    const body = buildBody();
+
+    const res = isEdit
+      ? await updateSuperAdminTest(formData.test_type_id, body)
+      : await addSuperAdminTest(body);
 
     setLoading(false);
 
     if (res?.success) {
-      alert("Test updated successfully");
+      alert(isEdit ? "Test updated successfully" : "Test created successfully");
+
       resetForm();
       loadTests(1, 10);
     } else {
@@ -278,7 +291,7 @@ export default function Tests() {
     <div>
       <div className="edit-test">
         <div className="form-header">
-          <h3>{isEdit ? "Edit Test" : "Select Test To Edit"}</h3>
+          <h3>{isEdit ? "Update Test" : "Create New Test"}</h3>
 
           <div className="action-button">
             <Button
@@ -291,7 +304,9 @@ export default function Tests() {
             <Button
               btntype="submit"
               btnClass="primary"
-              btnTitle={loading ? "Saving..." : "Update Test"}
+              btnTitle={
+                loading ? "Saving..." : isEdit ? "Update Test" : "Create Test"
+              }
               btnClick={handleSubmit}
             />
           </div>
@@ -301,6 +316,7 @@ export default function Tests() {
           ctype="primary"
           tag="form"
           style={{ padding: "20px", marginBottom: "20px" }}
+          onSubmit={handleSubmit}
         >
           <div className="edit-test-form">
             {fields.map((field) => (
