@@ -1,4 +1,4 @@
-import { get, post,put } from "./http";
+import { del, get, post,put } from "./http";
 import {
   getToken,
   storeToken,
@@ -836,4 +836,15 @@ export async function addSuperAdminTest(body) {
   }
 
   return await post(getUrl("superadmin", "add/test"), body, token);
+}
+
+export async function deleteSuperAdminOrganization(org_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "Login required" };
+  }
+
+  return await del(getUrl("superadmin", `organization/${org_id}`), token);
 }

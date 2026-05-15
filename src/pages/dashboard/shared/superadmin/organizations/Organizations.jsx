@@ -1,202 +1,3 @@
-// import { useEffect, useMemo, useState } from "react";
-// import {
-//   getSuperAdminOrganizations,
-//   createSuperAdminOrganization,
-//   updateSuperAdminOrganization,
-// } from "../../../../../api/api";
-// import Table from "../../../../../components/table/table";
-// import Card from "../../../../../components/card/card";
-// import TextBox from "../../../../../components/input/input";
-// import Button from "../../../../../components/button/button";
-// import "./Organizations.css";
-
-// export default function Organizations() {
-//   const initialForm = {
-//     org_id: "",
-//     org_name: "",
-//     code: "",
-//     org_code: "",
-//     email: "",
-//     phone: "",
-//     address: "",
-//     status: "ACTIVE",
-//     plan_id: "",
-//   };
-
-//   const [formData, setFormData] = useState(initialForm);
-//   const [organizations, setOrganizations] = useState([]);
-//   const [count, setCount] = useState(0);
-//   const [loading, setLoading] = useState(false);
-
-//   const isEdit = Boolean(formData.org_id);
-
-//   const statusOptions = [
-//     { label: "ACTIVE", value: "ACTIVE" },
-//     { label: "INACTIVE", value: "INACTIVE" },
-//   ];
-
-//   const fields = useMemo(
-//     () => [
-//       { label: "Organization Name", name: "org_name", type: "text", placeholder: "Enter Organization Name", required: true },
-//       { label: "Code", name: "code", type: "text", placeholder: "Enter Code", required: true },
-//       { label: "Org Code", name: "org_code", type: "text", placeholder: "Enter Org Code" },
-//       { label: "Email", name: "email", type: "email", placeholder: "Enter Email" },
-//       { label: "Phone", name: "phone", type: "text", placeholder: "Enter Phone" },
-//       { label: "Plan ID", name: "plan_id", type: "text", placeholder: "Enter Plan ID" },
-//       { label: "Status", name: "status", type: "select", options: statusOptions },
-//       { label: "Address", name: "address", type: "text", placeholder: "Enter Address" },
-//     ],
-//     []
-//   );
-
-//   const columns = [
-//     { name: "Name", key: "org_name", type: "text" },
-//     { name: "Code", key: "code", type: "text" },
-//     { name: "Org Code", key: "org_code", type: "text" },
-//     { name: "Email", key: "email", type: "text" },
-//     { name: "Phone", key: "phone", type: "text" },
-//     { name: "Status", key: "status", type: "text" },
-//     { name: "Action", key: "action", type: "text" },
-//   ];
-
-//   async function loadOrganizations(page = 1, pageSize = 10) {
-//     const res = await getSuperAdminOrganizations(pageSize, page);
-
-//     if (res?.success) {
-//       const rows = Array.isArray(res?.data?.rows)
-//         ? res.data.rows.map((org) => ({
-//             ...org,
-//             id: org.org_id,
-//             org_name: org.org_name || "----",
-//             code: org.code || "----",
-//             org_code: org.org_code || "----",
-//             email: org.email || "----",
-//             phone: org.phone || "----",
-//             status: org.status || "----",
-//             action: "Edit",
-//           }))
-//         : [];
-
-//       setOrganizations(rows);
-//       setCount(res?.data?.count || rows.length);
-//     }
-//   }
-
-//   useEffect(() => {
-//     loadOrganizations(1, 10);
-//   }, []);
-
-//   function handleChange(e) {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({ ...prev, [name]: value }));
-//   }
-
-//   function resetForm() {
-//     setFormData(initialForm);
-//   }
-
-//   function handleEdit(org) {
-//     setFormData({
-//       org_id: org.org_id || "",
-//       org_name: org.org_name || "",
-//       code: org.code === "----" ? "" : org.code || "",
-//       org_code: org.org_code === "----" ? "" : org.org_code || "",
-//       email: org.email === "----" ? "" : org.email || "",
-//       phone: org.phone === "----" ? "" : org.phone || "",
-//       address: org.address || "",
-//       status: org.status || "ACTIVE",
-//       plan_id: org.plan_id || "",
-//     });
-
-//     window.scrollTo({ top: 0, behavior: "smooth" });
-//   }
-
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-
-//     const body = {
-//       org_name: formData.org_name,
-//       code: formData.code,
-//       org_code: formData.org_code,
-//       email: formData.email,
-//       phone: formData.phone,
-//       address: formData.address,
-//       status: formData.status,
-//       plan_id: formData.plan_id || null,
-//     };
-
-//     setLoading(true);
-
-//     const res = isEdit
-//       ? await updateSuperAdminOrganization(formData.org_id, body)
-//       : await createSuperAdminOrganization(body);
-
-//     setLoading(false);
-
-//     if (res?.success) {
-//       alert(isEdit ? "Organization updated successfully" : "Organization created successfully");
-//       resetForm();
-//       loadOrganizations(1, 10);
-//     } else {
-//       alert(res?.message || "Something went wrong");
-//     }
-//   }
-
-//   return (
-//     <div>
-//       <div className="create-organization">
-//         <div className="form-header">
-//           <h3>{isEdit ? "Edit Organization" : "Create Organization"}</h3>
-
-//           <div className="action-button">
-//             <Button btntype="button" btnClass="secondary" btnTitle="Reset" btnClick={resetForm} />
-//             <Button
-//               btntype="submit"
-//               btnClass="primary"
-//               btnTitle={loading ? "Saving..." : isEdit ? "Update Organization" : "Add Organization"}
-//               btnClick={handleSubmit}
-//             />
-//           </div>
-//         </div>
-
-//         <Card ctype="primary" tag="form" style={{ padding: "20px", marginBottom: "20px" }}>
-//           <div className="create-organization-form">
-//             {fields.map((field) => (
-//               <TextBox
-//                 key={field.name}
-//                 label={field.label}
-//                 name={field.name}
-//                 type={field.type}
-//                 value={formData[field.name]}
-//                 onChange={handleChange}
-//                 placeholder={field.placeholder}
-//                 options={field.options || []}
-//                 required={field.required || false}
-//                 inputDivClass="create-organization-field"
-//               />
-//             ))}
-//           </div>
-//         </Card>
-//       </div>
-
-//       <h2>Organization Details</h2>
-
-//       <Table
-//         name="organizations"
-//         columns={columns}
-//         rows={organizations}
-//         total={count}
-//         handlePagination={loadOrganizations}
-//         onCellClick={(row, column) => {
-//           if (column.key === "action") {
-//             handleEdit(row);
-//           }
-//         }}
-//       />
-//     </div>
-//   );
-// }
-
 import { useEffect, useMemo, useState } from "react";
 import {
   getSuperAdminOrganizations,
@@ -206,6 +7,7 @@ import {
   createSuperAdminPlan,
   updateSuperAdminPlan,
   getSuperAdminTests,
+  deleteSuperAdminOrganization,
 } from "../../../../../api/api";
 
 import Table from "../../../../../components/table/table";
@@ -362,7 +164,8 @@ export default function Organizations() {
     { name: "Code", key: "code", type: "text" },
     { name: "Plan", key: "plan_name", type: "text" },
     { name: "Status", key: "status", type: "text" },
-    { name: "Action", key: "action", type: "text" },
+    { name: "Action", key: "edit", type: "text" },
+    { name: "Delete", key: "delete", type: "text" },
   ];
 
   const planColumns = [
@@ -397,7 +200,8 @@ export default function Organizations() {
               phone: org.phone || "----",
               plan_name: plan?.display_name || org.plan_id || "----",
               status: org.status || "----",
-              action: "Edit",
+              edit: "Edit",
+              delete: "❌ Delete",
             };
           })
         : [];
@@ -469,6 +273,28 @@ export default function Organizations() {
     });
 
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  async function handleOrgDelete(org) {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete "${org.org_name}"?\n\nThis will permanently delete all related admins, technicians, devices, patients, test histories, and results.`,
+    );
+
+    if (!confirmDelete) return;
+
+    setLoading(true);
+
+    const res = await deleteSuperAdminOrganization(org.org_id);
+
+    setLoading(false);
+
+    if (res?.success) {
+      alert("Organization deleted successfully");
+      resetOrgForm();
+      loadOrganizations(1, 10);
+    } else {
+      alert(res?.message || "Failed to delete organization");
+    }
   }
 
   function getPlanTestNames(plan) {
@@ -673,6 +499,10 @@ export default function Organizations() {
             onCellClick={(row, column) => {
               if (column.key === "action") {
                 handleOrgEdit(row);
+              }
+
+              if (column.key === "delete") {
+                handleOrgDelete(row);
               }
             }}
           />
