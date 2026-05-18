@@ -9,6 +9,8 @@ import {
   searchDevice,
   getAllPatients,
   getSessionReport,
+  getTodayPatientReport,
+  getPatientRangeReport,
 } from "../../../../api/api";
 import Card from "../../../../components/card/card";
 import TextBox from "../../../../components/input/input";
@@ -41,6 +43,9 @@ export default function AddTestResult() {
 
   const [verifiedDevice, setVerifiedDevice] = useState(null);
   const [deviceVerified, setDeviceVerified] = useState(false);
+
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   const [sessionData, setSessionData] = useState({
     test_date: new Date().toISOString().split("T")[0],
@@ -162,7 +167,9 @@ export default function AddTestResult() {
 
       const options = apiData.map((item) => ({
         id: item.test_type_id,
-        name: item.name,
+        // name: item.name,
+        name: item.full_name || item.name,
+        short_name: item.name,
         unit: item.unit,
         normal_min: item.normal_min,
         normal_max: item.normal_max,
@@ -436,6 +443,119 @@ export default function AddTestResult() {
     }
   };
 
+  const handleDownloadTodayPdf = async () => {
+    try {
+      if (!resolvedPatientId) {
+        toast.error("Patient not loaded");
+        return;
+      }
+
+      const res = await getTodayPatientReport(resolvedPatientId);
+
+      const pdfBase64 = res?.data?.pdf_base64;
+
+      if (!pdfBase64) {
+        toast.error(res?.message || "No completed tests found for today");
+        return;
+      }
+
+      const byteCharacters = atob(pdfBase64);
+      const byteNumbers = new Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: "application/pdf" });
+
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      const filePatientId =
+        patientDetails?.patient_id != null
+          ? String(patientDetails.patient_id).padStart(5, "0")
+          : "patient";
+
+      link.href = url;
+      link.download = `${filePatientId}_today_report.pdf`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Today report downloaded successfully");
+    } catch (error) {
+      console.error("Today PDF download error:", error);
+      toast.error("Failed to download today's report");
+    }
+  };
+
+  const downloadPdfFromBase64 = (pdfBase64, filename) => {
+    const byteCharacters = atob(pdfBase64);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: "application/pdf" });
+
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    window.URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadRangePdf = async () => {
+    try {
+      if (!resolvedPatientId) {
+        toast.error("Patient not loaded");
+        return;
+      }
+
+      if (!fromDate || !toDate) {
+        toast.error("Please select From Date and To Date");
+        return;
+      }
+
+      const res = await getPatientRangeReport(
+        resolvedPatientId,
+        fromDate,
+        toDate,
+      );
+
+      const pdfBase64 = res?.data?.pdf_base64;
+
+      if (!pdfBase64) {
+        toast.error(res?.message || "No tests found for selected date range");
+        return;
+      }
+
+      const filePatientId =
+        patientDetails?.patient_id != null
+          ? String(patientDetails.patient_id).padStart(5, "0")
+          : "patient";
+
+      downloadPdfFromBase64(pdfBase64, `${filePatientId}_custom_report.pdf`);
+
+      toast.success("Custom report downloaded successfully");
+    } catch (error) {
+      console.error("Custom PDF download error:", error);
+      toast.error("Failed to download custom report");
+    }
+  };
+
   const handleDownloadCsv = (session) => {
     try {
       const rows = (session.results || []).map((item) => {
@@ -599,33 +719,6 @@ export default function AddTestResult() {
     }
   };
 
-  const maskName = (name) => {
-    if (!name) return "-";
-
-    return name
-      .split(" ")
-      .map((part) => {
-        if (part.length <= 2) return part;
-        return part[0] + "*".repeat(part.length - 2) + part[part.length - 1];
-      })
-      .join(" ");
-  };
-
-  const maskEmail = (email) => {
-    if (!email) return "-";
-
-    const [user, domain] = email.split("@");
-    if (!user || !domain) return email;
-
-    const visible = user.slice(0, 2);
-    const masked = "*".repeat(Math.max(user.length - 2, 0));
-
-    return `${visible}${masked}@${domain}`;
-  };
-
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
-
   const handleDateSubmit = (e) => {
     e.preventDefault();
     console.log({ fromDate, toDate });
@@ -643,7 +736,7 @@ export default function AddTestResult() {
             <div className="info-box">
               <span className="info-label">Name</span>
               <span className="info-value">
-                {maskName(patientDetails.name)}
+                {patientDetails.name || "----"}
               </span>
             </div>
 
@@ -692,7 +785,7 @@ export default function AddTestResult() {
             <div className="info-box">
               <span className="info-label">Email</span>
               <span className="info-value">
-                {maskEmail(patientDetails.email)}
+                {patientDetails.email || "----"}
               </span>
             </div>
 
@@ -709,42 +802,57 @@ export default function AddTestResult() {
       </Card>
 
       {/* <Card className="date-card"> */}
-        <form onSubmit={handleDateSubmit} className="date-form">
-          <div className="date-grid" >
-            <div className="date-field">
-              <label>From Date</label>
-              <input
-                type="datetime-local"
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-              />
-            </div>
-
-            <div className="date-field">
-              <label>To Date</label>
-              <input
-                type="datetime-local"
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-              />
-            </div>
+      <form onSubmit={handleDateSubmit} className="date-form">
+        <div className="date-grid">
+          <div className="date-field">
+            <label>From Date</label>
+            <input
+              type="date"
+              value={fromDate}
+              onChange={(e) => setFromDate(e.target.value)}
+            />
           </div>
 
-          <div className="button-wrapper">
-            <button type="submit">Submit</button>
+          <div className="date-field">
+            <label>To Date</label>
+            <input
+              type="date"
+              value={toDate}
+              onChange={(e) => setToDate(e.target.value)}
+            />
           </div>
-        </form>
+        </div>
+
+        <div
+          className="button-wrapper"
+          style={{ display: "flex", gap: "10px" }}
+        >
+
+          <button type="button" onClick={handleDownloadRangePdf}>
+            Custom PDF
+          </button>
+        </div>
+      </form>
       {/* </Card> */}
 
       <div className="history-header">
         <h2 className="section-title">Test History</h2>
 
-        <Button
-          btntype="button"
-          btnClass="primary"
-          btnTitle={showAddTestForm ? "Close" : "+ Add Test"}
-          btnClick={() => setShowAddTestForm((prev) => !prev)}
-        />
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button
+            btntype="button"
+            btnClass="primary"
+            btnTitle="TODAY PDF"
+            btnClick={handleDownloadTodayPdf}
+          />
+
+          <Button
+            btntype="button"
+            btnClass="primary"
+            btnTitle={showAddTestForm ? "Close" : "+ Add Test"}
+            btnClick={() => setShowAddTestForm((prev) => !prev)}
+          />
+        </div>
       </div>
 
       {showAddTestForm && (
@@ -801,18 +909,6 @@ export default function AddTestResult() {
             </div>
           )}
 
-          {/* <div className="notes-row">
-            <TextBox
-              label="Session Notes (optional)"
-              name="notes"
-              type="text"
-              value={sessionData.notes}
-              onChange={handleSessionChange}
-              placeholder="Any observations for this session..."
-              inputDivClass="add-test-result-field"
-            />
-          </div> */}
-
           <div
             className={`measurements-section ${!deviceVerified ? "disabled-section" : ""}`}
           >
@@ -862,7 +958,8 @@ export default function AddTestResult() {
                                 checked={isChecked}
                                 onChange={() => handleTestCheck(test.id)}
                               />
-                              <span>{test.name}</span>
+                              {/* <span>{test.name}</span> */}
+                              <span>{test.full_name || test.name}</span>
                             </div>
 
                             <span className="measurement-unit">
@@ -927,7 +1024,15 @@ export default function AddTestResult() {
                     <div style={{ marginBottom: "16px" }}>
                       <strong>Tests:</strong>{" "}
                       {(session.results || [])
-                        .map((r) => r.test_name || r.testType?.name || "Test")
+                        // .map((r) => r.test_name || r.testType?.name || "Test")
+                        .map(
+                          (r) =>
+                            r.testType?.full_name ||
+                            r.test_full_name ||
+                            r.test_name ||
+                            r.testType?.name ||
+                            "Test",
+                        )
                         .join(", ") || "—"}
                     </div>
 
@@ -1061,7 +1166,11 @@ export default function AddTestResult() {
                                       }
                                     >
                                       <td>
-                                        {tt.name || item.test_name || "Test"}
+                                        {tt.full_name ||
+                                          item.test_full_name ||
+                                          item.test_name ||
+                                          tt.name ||
+                                          "Test"}
                                       </td>
 
                                       <td style={{ color: colors.fg }}>

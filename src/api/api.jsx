@@ -355,6 +355,54 @@ export async function addPatient(body) {
   return await post(getUrl("technician", "add/patient"), body, token);
 }
 
+export async function updatePatientSampleId(patient_id, body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "User is already logged out." };
+  }
+
+  return await put(
+    getUrl("technician", ["patient", patient_id, "sample-id"]),
+    body,
+    token
+  );
+}
+
+export async function getTodayPatientReport(patient_id) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "User is already logged out." };
+  }
+
+  return await get(
+    getUrl("technician", ["patient", patient_id, "today-report"]),
+    token
+  );
+}
+
+export async function getPatientRangeReport(patient_id, fromDate, toDate) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "User is already logged out." };
+  }
+
+  const query = new URLSearchParams({
+    fromDate,
+    toDate,
+  }).toString();
+
+  return await get(
+    getUrl("technician", `patient/${patient_id}/range-report?${query}`),
+    token
+  );
+}
+
 /* ADD TEST RESULT */
 export async function addPatientTestResult(body) {
 

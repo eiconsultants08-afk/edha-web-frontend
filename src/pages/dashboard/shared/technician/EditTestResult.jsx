@@ -253,7 +253,13 @@ export default function EditTestResult() {
                     background: "#eaf7f1",
                   }}
                 >
-                  <strong>{tt.name || tt.test_type_name || "Test"}</strong>
+                  <strong>
+                    {tt.full_name ||
+                      tt.test_full_name ||
+                      tt.name ||
+                      tt.test_type_name ||
+                      "Test"}
+                  </strong>
                   <span>{unit || "-"}</span>
                 </div>
 

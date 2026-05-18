@@ -155,27 +155,6 @@ export default function Patients() {
     }
   };
 
-  const maskName = (name) => {
-    const str = String(name || "").trim();
-    if (!str) return "";
-
-    return str
-      .split(/\s+/)
-      .map((part) => {
-        if (part.length === 1) return part;
-        return part[0] + "*".repeat(part.length - 1);
-      })
-      .join(" ");
-  };
-
-  const maskPhone = (phone) => {
-    const str = String(phone || "").trim();
-    if (!str) return "";
-    if (str.length <= 4) return str;
-
-    return str.slice(0, 4) + "*".repeat(str.length - 4);
-  };
-
   const columns = [
     {
       name: "Patient ID",
@@ -186,7 +165,6 @@ export default function Patients() {
     },
     { name: "Name", key: "name", type: "text" },
     { name: "Gender", key: "gender", type: "text" },
-    { name: "Address", key: "address", type: "text" },
     { name: "Phone", key: "phone", type: "text" },
     { name: "Email", key: "email", type: "text" },
     { name: "Organization", key: "org_id", type: "text" },
@@ -204,9 +182,8 @@ export default function Patients() {
               id: item.patient_id,
               patient_id: item.patient_id,
               reference_id: item.patient_code,
-              name: maskName(item.name || ""),
-              phone: maskPhone(item.phone || ""),
-              address: item.address || "----",
+              name: item.name || "----",
+              phone: item.phone || "----",
               email: item.email || "----",
               org_id: item.org_name || "----",
               created_by_name: item.created_by_name || "----",
