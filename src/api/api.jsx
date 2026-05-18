@@ -393,6 +393,18 @@ export async function saveUartPatientTestResult(body) {
   return await post(getUrl("technician", "/uart/test-result"), body, token);
 }
 
+/* SAVE UART RESULT */
+export async function saveUartResult(body) {
+  const { isLoginRequired, token } = await getAuthToken();
+
+  if (isLoginRequired) {
+    removeAllTokens();
+    return { success: false, message: "User is already logged out." };
+  }
+
+  return await post(getUrl("technician", ["uart", "save-result"]), body, token);
+}
+
 /* GET PATIENT BY REFERENCE ID */
 export async function getPatientByReferenceId(reference_id) {
   const { isLoginRequired, token } = await getAuthToken();
